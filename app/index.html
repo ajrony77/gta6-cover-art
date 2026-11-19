@@ -3,20 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Coast Studio — GTA-style cover maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" id="controls">
+    <h1>VICE COAST STUDIO</h1>
+    <p class="tag">A photo and a caption, made into a GTA-style multi-panel
+      cover. Original art — no Rockstar logos, artwork or fonts.</p>
+
+    <section>
+      <h2>1 · Photos</h2>
+      <div id="samples" class="thumbs"></div>
+      <label class="upload">Upload your own photo
+        <input id="upload" type="file" accept="image/*">
+      </label>
+      <label class="check"><input id="fillOne" type="checkbox">
+        One photo fills every panel</label>
+    </section>
+
+    <section>
+      <h2>2 · Layout</h2>
+      <div id="layouts" class="pickrow"></div>
+    </section>
+
+    <section>
+      <h2>3 · Grade</h2>
+      <div id="grades" class="pickrow"></div>
+    </section>
+
+    <section>
+      <h2>4 · Words</h2>
+      <label>Title <input id="title" type="text" maxlength="24" value="VICE COAST"></label>
+      <label>Script subtitle <input id="subtitle" type="text" maxlength="30" value="Neon Tide"></label>
+      <label>Press quote <input id="quote" type="text" maxlength="80" value="The coast has never looked this good"></label>
+      <label>Tagline <input id="tagline" type="text" maxlength="48" value="ONE COAST · NO RULES · COMING SOON"></label>
+    </section>
+
+    <section>
+      <h2>5 · Selected panel</h2>
+      <p id="panelName" class="panelname"></p>
+      <label>Caption chip <input id="chip" type="text" maxlength="42"></label>
+      <label>Zoom <input id="zoom" type="range" min="0.8" max="2.5" step="0.05" value="1"></label>
+      <button id="resetPan" type="button">Reset position</button>
+      <p class="hint">Click a panel to select it. Drag to move its photo,
+        scroll to zoom it.</p>
+    </section>
+
+    <section>
+      <h2>6 · Badges</h2>
+      <div id="badges" class="checks"></div>
+    </section>
+
+    <section>
+      <h2>7 · Export</h2>
+      <div id="sizes" class="pickrow"></div>
+      <button id="export" type="button" class="primary">Export PNG</button>
+      <div class="undorow">
+        <button id="undo" type="button">Undo</button>
+        <button id="redo" type="button">Redo</button>
+      </div>
+      <p id="status" role="status"></p>
+    </section>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <section class="stage">
+    <canvas id="cover" width="1920" height="1080" aria-label="The cover"></canvas>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>

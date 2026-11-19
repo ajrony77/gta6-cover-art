@@ -1,12 +1,246 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
-body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+@font-face {
+  font-family: 'Anton';
+  src: url('./fonts/Anton-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pacifico';
+  src: url('./fonts/Pacifico-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #14101c;
+  color: #f5efe4;
+  font: 15px/1.45 system-ui, sans-serif;
+}
+
+.app {
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.controls {
+  width: 330px;
+  min-width: 330px;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 18px 28px;
+  box-sizing: border-box;
+  background: #1e1828;
+  border-right: 1px solid #342b47;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.controls h1 {
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: #ffd76a;
+}
+
+.controls h2 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ff7ad9;
+}
+
+.controls section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tag {
+  margin: 0;
+  color: #b9b0c9;
+  font-size: 13px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+label.check {
+  flex-direction: row;
+  align-items: center;
+  font-weight: 400;
+  gap: 8px;
+}
+
+input[type=text] {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid #4a3f63;
+  border-radius: 6px;
+  background: #14101c;
+  color: #f5efe4;
+}
+
+input[type=range] {
+  width: 100%;
+  accent-color: #ff5e8a;
+}
+
+button {
+  font: inherit;
+  font-weight: 700;
+  padding: 9px 12px;
+  border: 1px solid #4a3f63;
+  border-radius: 6px;
+  background: #2a2238;
+  color: #f5efe4;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #ff7ad9;
+}
+
+button.primary {
+  background: #ff5e8a;
+  border-color: #ff5e8a;
+  color: #fff;
+  padding: 12px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.thumb {
+  padding: 0;
+  border: 2px solid #4a3f63;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #14101c;
+}
+
+.thumb img {
+  display: block;
+  width: 100%;
+  height: 44px;
+  object-fit: cover;
+}
+
+.thumb span {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pickrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pick {
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.pick.active {
+  background: #ff5e8a;
+  border-color: #ff5e8a;
+  color: #fff;
+}
+
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.undorow {
+  display: flex;
+  gap: 8px;
+}
+
+.undorow button {
+  flex: 1;
+}
+
+.panelname {
+  margin: 0;
+  color: #ffd76a;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.hint {
+  margin: 0;
+  color: #b9b0c9;
+  font-size: 12px;
+}
+
+#status {
+  margin: 0;
+  min-height: 20px;
+  color: #7dffb0;
+  font-size: 13px;
+}
+
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.stage canvas {
+  max-width: 100%;
+  max-height: calc(100vh - 48px);
+  width: auto;
+  height: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  background: #f5efe4;
+}
+
+body.shot-cover {
+  background: #111;
+}
+
+body.shot-cover .controls {
+  display: none;
+}
+
+body.shot-cover .app {
+  padding: 0;
+}
+
+body.shot-cover .stage {
+  padding: 0;
+}
+
+body.shot-cover .stage canvas {
+  max-width: none;
+  max-height: none;
+  box-shadow: none;
+}
