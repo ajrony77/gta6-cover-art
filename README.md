@@ -6,6 +6,8 @@
 
 Vice Coast Studio turns your photos into multi-panel GTA 6-style cover art — pick a layout and grade, add location and time caption chips, and export a PNG in 1080×1080, 1080×1350 or 1920×1080.
 
+What you get: 6 multi-panel layouts, 5 cinematic grades, 8 built-in photos, gradient title and neon-script lettering, and the full badge set — all rendered locally in the browser.
+
 ## Run it
 
 ```sh
